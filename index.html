@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetJoy | Automated Pet Food, Toys & Accessories Subscription</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="brand-logo" onclick="navigate('home')">
+        <div class="brand-icon">🐾</div>
+        <span>PetJoy</span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><button class="nav-link active" data-view="home" onclick="navigate('home')">Home</button></li>
+          <li><button class="nav-link" data-view="catalog" onclick="navigate('catalog')">Catalog</button></li>
+          <li><button class="nav-link" data-view="builder" onclick="navigate('builder')">Build Custom Box 🎁</button></li>
+          <li><button class="nav-link" data-view="subscriptions" onclick="navigate('subscriptions')">My Subscriptions</button></li>
+          <li><button class="nav-link" data-view="admin" onclick="navigate('admin')">Admin Dashboard ⚡</button></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="userNavSection" class="user-badge" onclick="openRoleModal()" style="cursor: pointer;" title="Click to Switch Demo Profiles">
+          <span>👤</span>
+          <span id="navUserName">Sarah Miller</span>
+          <span class="btn btn-outline btn-sm" style="margin-left: 0.4rem; padding: 0.2rem 0.5rem; font-size: 0.75rem;">Switch</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: HOME ================= -->
+  <main id="view-home" class="page-view">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge badge-accent">🔄 Automated Pet Care On Autopilot</span>
+          <h1>Happiness Delivered. <br><span class="hero-highlight">Every Week or Month.</span></h1>
+          <p class="hero-desc">
+            Automated recurring subscriptions for veterinarian-approved <strong>Pet Food</strong>, durable <strong>Toys</strong>, and everyday <strong>Pet Accessories</strong>. Never run out of treats again.
+          </p>
+
+          <div class="hero-cta">
+            <button onclick="navigate('builder')" class="btn btn-accent btn-lg">Build Your Pet's Box 🐾</button>
+            <button onclick="navigate('catalog')" class="btn btn-outline btn-lg">Explore Catalog</button>
+          </div>
+
+          <div class="hero-perks">
+            <div class="perk-item"><span>✨</span> 15-20% Subscriber Discount</div>
+            <div class="perk-item"><span>⏸️</span> Pause or Skip Anytime</div>
+            <div class="perk-item"><span>🚚</span> Free Automated Dispatch</div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <span class="floating-pill">📦 Next Delivery in 4 Days</span>
+          <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=800&auto=format&fit=crop&q=80" alt="Dog with toys" class="hero-card-img">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h4 style="font-size: 1.15rem; margin-bottom: 0.2rem;">Max's Canine Super Box</h4>
+              <p class="text-muted" style="font-size: 0.85rem;">3 Kibbles & Treats • 2 KONG Toys • 1 Slicker Brush</p>
+            </div>
+            <span class="badge badge-emerald">Active • Monthly</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge badge-primary">How It Works</span>
+          <h2>Automated In 3 Simple Steps</h2>
+          <p class="text-muted">Set up your pet's recurring schedule once, and our engine handles the rest.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-icon">🐕</div>
+            <h3>Tell Us About Your Pet</h3>
+            <p class="text-muted">Enter your pet's name, age, breed, and dietary preferences (grain-free, dental care, chew strength).</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-icon">🎁</div>
+            <h3>Customize Food, Toys & Gear</h3>
+            <p class="text-muted">Pick a pre-curated box or hand-select premium food bags, interactive toys, and stylish grooming accessories.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-icon">🔄</div>
+            <h3>Automated Cycle & Deliveries</h3>
+            <p class="text-muted">Choose your renewal cycle (Weekly, Bi-weekly, or Monthly). Our automated engine bills, packs, and delivers automatically.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curated Boxes Section -->
+    <section class="section" style="background: var(--white); border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge badge-accent">Curated For You</span>
+          <h2>Popular Subscription Boxes</h2>
+          <p class="text-muted">Designed by pet nutritionists and trainers for maximum tail wagging.</p>
+        </div>
+
+        <div id="curatedBoxesGrid" class="box-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Preview Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge badge-primary">Subscription Catalog</span>
+          <h2>Explore Our Three Pillars of Pet Care</h2>
+          <p class="text-muted">Subscribe to individual products or bundle them for compound savings.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card" style="text-align: left;">
+            <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&auto=format&fit=crop&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1rem;" alt="Pet Food">
+            <h3>🍖 Premium Pet Food</h3>
+            <p class="text-muted" style="margin-bottom: 1rem;">Nutritious dry kibbles, succulent wet food pouches, and dental treats for all dog & cat breeds.</p>
+            <button onclick="navigate('catalog'); setCategoryFilter('food');" class="btn btn-outline btn-sm">Explore Food &rarr;</button>
+          </div>
+
+          <div class="step-card" style="text-align: left;">
+            <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&auto=format&fit=crop&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1rem;" alt="Pet Toys">
+            <h3>🧸 Stimulating Toys</h3>
+            <p class="text-muted" style="margin-bottom: 1rem;">Heavy-duty KONG rubber chews, Chuckit bouncing balls, electronic cat wands, and organic catnip.</p>
+            <button onclick="navigate('catalog'); setCategoryFilter('toys');" class="btn btn-outline btn-sm">Explore Toys &rarr;</button>
+          </div>
+
+          <div class="step-card" style="text-align: left;">
+            <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop&q=80" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1rem;" alt="Pet Accessories">
+            <h3>🦺 Accessories & Gear</h3>
+            <p class="text-muted" style="margin-bottom: 1rem;">Padded harnesses, self-cleaning slicker brushes, anti-spill double bowls, and memory foam beds.</p>
+            <button onclick="navigate('catalog'); setCategoryFilter('accessories');" class="btn btn-outline btn-sm">Explore Gear &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Automation Demo Banner -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="cron-simulator-box">
+          <div class="cron-info">
+            <h3>⚡ Experience the Automated Subscription Engine</h3>
+            <p>This project features a real-time recurring billing & fulfillment daemon. Visit the Admin Dashboard or Subscription Manager to test automated interval triggering and order lifecycle transitions live!</p>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="navigate('admin')" class="btn btn-primary btn-lg">Open Admin Simulator ⚡</button>
+            <button onclick="navigate('subscriptions')" class="btn btn-outline btn-lg" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">My Active Boxes 📦</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= VIEW 2: CATALOG ================= -->
+  <main id="view-catalog" class="page-view" style="display: none;">
+    <div class="page-header-bar">
+      <div class="container">
+        <span class="badge badge-primary">Full Product Catalog</span>
+        <h1 style="font-size: 2.2rem; margin-top: 0.4rem;">Pet Food, Toys & Pet Accessories</h1>
+        <p class="text-muted">Choose your pet's favorites to subscribe on autopilot or assemble into a personalized box.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <!-- Filters & Search Bar -->
+        <div class="catalog-filters">
+          <div class="filter-group" id="filterPetGroup">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--slate-600); margin-right: 0.2rem;">PET:</span>
+            <button class="filter-pill active" data-val="all" onclick="setPetFilter('all')">🐾 All Pets</button>
+            <button class="filter-pill" data-val="dog" onclick="setPetFilter('dog')">🐶 Dogs</button>
+            <button class="filter-pill" data-val="cat" onclick="setPetFilter('cat')">🐱 Cats</button>
+          </div>
+
+          <div class="filter-group" id="filterCatGroup">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--slate-600); margin-right: 0.2rem;">CATEGORY:</span>
+            <button class="filter-pill active" data-val="all" onclick="setCategoryFilter('all')">All Items</button>
+            <button class="filter-pill" data-val="food" onclick="setCategoryFilter('food')">🍖 Food & Treats</button>
+            <button class="filter-pill" data-val="toys" onclick="setCategoryFilter('toys')">🧸 Toys</button>
+            <button class="filter-pill" data-val="accessories" onclick="setCategoryFilter('accessories')">🦺 Accessories</button>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; flex: 1; min-width: 260px; max-width: 360px;">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search food, toys, collars..." oninput="onSearchChange()">
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="product-grid">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div id="noProductsFound" style="display: none; text-align: center; padding: 4rem 1rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+          <h3>No pet products match your filters</h3>
+          <p class="text-muted" style="margin-bottom: 1.5rem;">Try resetting your filters or searching with another keyword.</p>
+          <button onclick="resetFilters()" class="btn btn-outline">Reset Filters</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= VIEW 3: BOX BUILDER ================= -->
+  <main id="view-builder" class="page-view" style="display: none;">
+    <div class="page-header-bar">
+      <div class="container">
+        <span class="badge badge-accent">Interactive Box Wizard</span>
+        <h1 style="font-size: 2.2rem; margin-top: 0.4rem;">Build Your Custom Subscription Box</h1>
+        <p class="text-muted">Tailor the perfect combination of healthy food, exciting toys, and essential accessories for your pet.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <!-- Progress Stepper -->
+        <div class="wizard-progress">
+          <div class="progress-step active" id="pstep-1">
+            <div class="step-indicator">1</div>
+            <span class="step-label">Pet Profile</span>
+          </div>
+          <div class="progress-step" id="pstep-2">
+            <div class="step-indicator">2</div>
+            <span class="step-label">Select Items</span>
+          </div>
+          <div class="progress-step" id="pstep-3">
+            <div class="step-indicator">3</div>
+            <span class="step-label">Schedule & Plan</span>
+          </div>
+          <div class="progress-step" id="pstep-4">
+            <div class="step-indicator">4</div>
+            <span class="step-label">Confirm & Activate</span>
+          </div>
+        </div>
+
+        <!-- Wizard Layout -->
+        <div class="wizard-layout">
+          <div>
+            <!-- STEP 1: PET PROFILE -->
+            <div id="step1Container" class="builder-step-content">
+              <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Step 1: Tell Us About Your Pet 🐾</h2>
+              <p class="text-muted" style="margin-bottom: 1.5rem;">We personalize nutritional balance and toy durability based on your pet's needs.</p>
+
+              <div class="form-group">
+                <label class="form-label">Pet Species:</label>
+                <div style="display: flex; gap: 1rem;">
+                  <label id="lblDog" style="flex: 1; padding: 1rem; border: 2px solid var(--primary); background: var(--primary-light); border-radius: var(--radius-md); cursor: pointer; text-align: center; font-weight: 700;">
+                    <input type="radio" name="petType" value="dog" checked onchange="onPetTypeChange('dog')">
+                    🐶 Dog / Puppy
+                  </label>
+                  <label id="lblCat" style="flex: 1; padding: 1rem; border: 2px solid var(--slate-300); border-radius: var(--radius-md); cursor: pointer; text-align: center; font-weight: 700;">
+                    <input type="radio" name="petType" value="cat" onchange="onPetTypeChange('cat')">
+                    🐱 Cat / Kitten
+                  </label>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Pet Name:</label>
+                  <input type="text" id="builderPetName" class="form-control" value="Max" placeholder="e.g. Max or Luna">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Breed:</label>
+                  <input type="text" id="builderBreed" class="form-control" value="Golden Retriever" placeholder="e.g. Golden Retriever">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Age (Years):</label>
+                  <input type="number" id="builderAge" class="form-control" value="3" min="0" max="25">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Dietary Preference / Allergies:</label>
+                  <select id="builderDiet" class="form-control">
+                    <option value="Standard">Standard Balanced Diet</option>
+                    <option value="Grain-Free">Grain-Free / Sensitive Stomach</option>
+                    <option value="High-Protein">High-Protein Active</option>
+                    <option value="Dental-Care">Dental Hygiene Focused</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+                <button onclick="goToStep(2)" class="btn btn-primary btn-lg">Next: Select Box Items &rarr;</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: SELECT ITEMS -->
+            <div id="step2Container" class="builder-step-content" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                  <h2 style="font-size: 1.5rem;">Step 2: Choose Food, Toys & Gear 📦</h2>
+                  <p class="text-muted">Click any item below to include it in this recurring box.</p>
+                </div>
+                <span id="selectedCountBadge" class="badge badge-primary">0 items selected</span>
+              </div>
+
+              <div class="category-selection-block">
+                <h3>🍖 Pet Food & Treats (Pick 1 or more)</h3>
+                <div id="foodSelectionList"></div>
+              </div>
+
+              <div class="category-selection-block">
+                <h3>🧸 Toys & Enrichment (Pick 1 or more)</h3>
+                <div id="toysSelectionList"></div>
+              </div>
+
+              <div class="category-selection-block">
+                <h3>🦺 Accessories & Care Gear (Pick 1 or more)</h3>
+                <div id="accessoriesSelectionList"></div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+                <button onclick="goToStep(1)" class="btn btn-outline">&larr; Back to Pet Profile</button>
+                <button onclick="goToStep(3)" class="btn btn-primary btn-lg">Next: Choose Frequency &rarr;</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: SCHEDULE & FREQUENCY -->
+            <div id="step3Container" class="builder-step-content" style="display: none;">
+              <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Step 3: Automated Renewal Schedule ⏰</h2>
+              <p class="text-muted" style="margin-bottom: 1.5rem;">How often should PetJoy automatically prepare and dispatch this box?</p>
+
+              <div class="form-group">
+                <label class="form-label">Delivery & Billing Frequency:</label>
+                <div class="frequency-cards">
+                  <div class="freq-card selected" onclick="selectFrequency(this, 'weekly', 15)">
+                    <span class="discount-tag">Save 15%</span>
+                    <div style="font-size: 1.3rem; margin-bottom: 0.2rem;">⚡ Weekly</div>
+                    <div style="font-size: 0.8rem; color: var(--slate-600); margin-bottom: 0.5rem;">Every 7 Days</div>
+                    <p style="font-size: 0.75rem; color: var(--emerald); font-weight: 700;">Best for high-energy pets & active chewers</p>
+                  </div>
+
+                  <div class="freq-card" onclick="selectFrequency(this, 'biweekly', 10)">
+                    <span class="discount-tag">Save 10%</span>
+                    <div style="font-size: 1.3rem; margin-bottom: 0.2rem;">📦 Bi-Weekly</div>
+                    <div style="font-size: 0.8rem; color: var(--slate-600); margin-bottom: 0.5rem;">Every 14 Days</div>
+                    <p style="font-size: 0.75rem; color: var(--emerald); font-weight: 700;">Balanced fresh food & treat cycle</p>
+                  </div>
+
+                  <div class="freq-card" onclick="selectFrequency(this, 'monthly', 5)">
+                    <span class="discount-tag">Save 5%</span>
+                    <div style="font-size: 1.3rem; margin-bottom: 0.2rem;">🗓️ Monthly</div>
+                    <div style="font-size: 0.8rem; color: var(--slate-600); margin-bottom: 0.5rem;">Every 30 Days</div>
+                    <p style="font-size: 0.75rem; color: var(--emerald); font-weight: 700;">Standard monthly delight box</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 2rem;">
+                <label class="form-label">Delivery Shipping Address:</label>
+                <input type="text" id="builderShippingAddress" class="form-control" value="742 Evergreen Terrace, Springfield, OR 97477">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Automated Billing Method (Simulated):</label>
+                <div style="padding: 1rem; border: 1px solid var(--slate-200); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <span style="font-size: 1.5rem;">💳</span>
+                    <div>
+                      <strong>Visa ending in 4242</strong>
+                      <div class="text-muted" style="font-size: 0.8rem;">Auto-billed on each scheduled renewal cycle</div>
+                    </div>
+                  </div>
+                  <span class="badge badge-emerald">Verified</span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+                <button onclick="goToStep(2)" class="btn btn-outline">&larr; Back to Items</button>
+                <button onclick="goToStep(4)" class="btn btn-primary btn-lg">Review Subscription &rarr;</button>
+              </div>
+            </div>
+
+            <!-- STEP 4: CONFIRM & ACTIVATE -->
+            <div id="step4Container" class="builder-step-content" style="display: none;">
+              <span class="badge badge-emerald" style="margin-bottom: 0.5rem;">Almost Ready!</span>
+              <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Step 4: Confirm Your Automated Subscription 🎉</h2>
+              <p class="text-muted" style="margin-bottom: 1.5rem;">Please review your pet's custom subscription details below before activation.</p>
+
+              <div style="background: var(--slate-50); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--slate-200); margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <strong>Pet:</strong>
+                  <span id="confirmPetSummary">Max (Dog, 3 yrs)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <strong>Schedule:</strong>
+                  <span id="confirmScheduleSummary">Weekly (Every 7 Days)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <strong>First Delivery:</strong>
+                  <span id="confirmFirstDeliveryDate">In 3-5 days</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <strong>Ship To:</strong>
+                  <span id="confirmAddressSummary">742 Evergreen Terrace</span>
+                </div>
+              </div>
+
+              <h4 style="margin-bottom: 0.8rem;">Items inside this Box:</h4>
+              <div id="confirmItemsList" style="margin-bottom: 1.5rem;"></div>
+
+              <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                <button onclick="goToStep(3)" class="btn btn-outline">&larr; Back to Schedule</button>
+                <button onclick="activateCustomSubscription()" class="btn btn-accent btn-lg" style="box-shadow: var(--shadow-lg);">
+                  🚀 Activate Automated Subscription
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Sticky Live Summary Card -->
+          <div>
+            <div class="order-summary-card">
+              <h3 class="summary-title">
+                <span>Box Summary</span>
+                <span id="sidePetSpeciesIcon">🐶</span>
+              </h3>
+
+              <div style="margin-bottom: 1.2rem;">
+                <div style="font-weight: 700; font-size: 1.05rem;" id="sideBoxName">Max's Custom Box</div>
+                <div class="text-muted" style="font-size: 0.85rem;" id="sidePetMeta">Dog • 3 yrs • Standard</div>
+              </div>
+
+              <div style="max-height: 180px; overflow-y: auto; margin-bottom: 1rem; border-top: 1px solid var(--slate-100); padding-top: 0.8rem;" id="sideItemsList"></div>
+
+              <div class="summary-row">
+                <span>Items Total:</span>
+                <span id="sideSubtotal">$0.00</span>
+              </div>
+
+              <div class="summary-row" style="color: var(--emerald);">
+                <span>Subscription Discount:</span>
+                <span id="sideDiscount">-$0.00 (15%)</span>
+              </div>
+
+              <div class="summary-row">
+                <span>Automated Shipping:</span>
+                <span style="color: var(--emerald); font-weight: 700;">FREE</span>
+              </div>
+
+              <div class="summary-row">
+                <span>Estimated Tax (5%):</span>
+                <span id="sideTax">$0.00</span>
+              </div>
+
+              <div class="summary-total">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Recurring Amount:</span>
+                  <span id="sideRecurringTotal">$0.00</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--slate-600); font-weight: normal; margin-top: 0.3rem;" id="sideRenewalNotice">
+                  Auto-bills every 7 days. Cancel or pause anytime.
+                </div>
+              </div>
+
+              <div style="background: var(--slate-50); padding: 0.8rem; border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--slate-600); line-height: 1.4;">
+                🛡️ <strong>Subscriber Guarantee:</strong> Swap items, change frequency, skip deliveries, or pause with 1 click from your Customer Dashboard.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= VIEW 4: SUBSCRIPTIONS ================= -->
+  <main id="view-subscriptions" class="page-view" style="display: none;">
+    <div class="page-header-bar">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-primary">Customer Management Portal</span>
+          <h1 style="font-size: 2.2rem; margin-top: 0.4rem;" id="portalGreeting">My Recurring Pet Subscriptions</h1>
+          <p class="text-muted">Manage your recurring delivery frequencies, pause for holidays, or track shipments.</p>
+        </div>
+
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <button onclick="triggerRenewalSimulation()" class="btn btn-primary" title="Trigger next billing and delivery cycle for testing">
+            ⚡ Simulate Automated Renewal
+          </button>
+          <button onclick="navigate('builder')" class="btn btn-accent">+ New Pet Box</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <!-- Navigation Tabs -->
+        <div style="display: flex; gap: 1rem; border-bottom: 2px solid var(--slate-200); margin-bottom: 2rem;">
+          <button class="nav-link active" id="tabBtnSubs" onclick="switchDashboardTab('subs')" style="background: none; border: none; font-size: 1.1rem; padding: 0.75rem 1rem; cursor: pointer; border-bottom: 3px solid var(--primary); margin-bottom: -2px;">
+            📦 Active Subscriptions (<span id="subsCount">0</span>)
+          </button>
+          <button class="nav-link" id="tabBtnOrders" onclick="switchDashboardTab('orders')" style="background: none; border: none; font-size: 1.1rem; padding: 0.75rem 1rem; cursor: pointer; color: var(--slate-600);">
+            🚚 Recurring Order History (<span id="ordersCount">0</span>)
+          </button>
+        </div>
+
+        <!-- TAB 1: Subscriptions List -->
+        <div id="subsTabContent">
+          <div id="subscriptionsContainer"></div>
+          <div id="noSubscriptionsNotice" style="display: none; text-align: center; background: var(--white); padding: 4rem 2rem; border-radius: var(--radius-lg); border: 1px dashed var(--slate-300);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+            <h3>You don't have any active subscriptions yet</h3>
+            <p class="text-muted" style="margin-bottom: 1.5rem;">Pick from our curated boxes or design a custom food and toy plan for your pet!</p>
+            <button onclick="navigate('builder')" class="btn btn-accent btn-lg">Build Your First Box &rarr;</button>
+          </div>
+        </div>
+
+        <!-- TAB 2: Orders & Tracking -->
+        <div id="ordersTabContent" style="display: none;">
+          <div id="ordersContainer"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= VIEW 5: ADMIN ================= -->
+  <main id="view-admin" class="page-view" style="display: none;">
+    <div class="page-header-bar">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-accent">Admin Operations & Analytics</span>
+          <h1 style="font-size: 2.2rem; margin-top: 0.4rem;">Subscription System Control Center</h1>
+          <p class="text-muted">Monitor MRR, manage subscriber box cycles, inventory catalog, and execute automation crons.</p>
+        </div>
+
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <button onclick="openAddProductModal()" class="btn btn-primary">+ Add New Item</button>
+          <button onclick="resetDataModal()" class="btn btn-outline" style="color: var(--slate-600);">↺ Reset Demo Data</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <!-- Executive Metric KPI Cards -->
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-icon" style="background: var(--primary-light); color: var(--primary);">📈</div>
+            <div>
+              <div class="metric-val" id="metricMrr">$0.00</div>
+              <div class="metric-lbl">Monthly Recurring Revenue</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background: var(--emerald-light); color: var(--emerald);">🐾</div>
+            <div>
+              <div class="metric-val" id="metricActiveSubs">0</div>
+              <div class="metric-lbl">Active Subscriptions</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background: var(--accent-light); color: var(--accent);">📦</div>
+            <div>
+              <div class="metric-val" id="metricTotalOrders">0</div>
+              <div class="metric-lbl">Total Recurring Orders</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background: var(--rose-light); color: var(--rose);">📊</div>
+            <div>
+              <div class="metric-val" id="metricChurn">0.0%</div>
+              <div class="metric-lbl">Customer Churn Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRON AUTOMATION ENGINE SIMULATOR BOX -->
+        <div class="cron-simulator-box">
+          <div class="cron-info">
+            <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+              <span style="font-size: 1.5rem;">⚡</span>
+              <h3 style="margin: 0;">Automated Recurring Engine (Cron Simulator)</h3>
+              <span class="badge badge-emerald">ACTIVE & POLLING</span>
+            </div>
+            <p>
+              The background daemon continuously monitors active subscriptions. When a subscription reaches its scheduled delivery date, the engine automatically charges the customer's card, generates a warehouse fulfillment order, advances the cycle date, and records audit logs.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <button onclick="triggerEngineRun()" id="btnTriggerEngine" class="btn btn-accent btn-lg" style="box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);">
+              ▶️ Run Automated Renewal Engine Now
+            </button>
+            <span style="font-size: 0.75rem; color: var(--slate-400); text-align: center;">Simulates scheduled interval expiration</span>
+          </div>
+        </div>
+
+        <!-- Live Terminal Activity Log -->
+        <div style="margin-bottom: 2.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+            <h4 style="font-size: 1rem; color: var(--slate-700);">🖥️ Live Automation Engine Audit Logs:</h4>
+            <span class="text-muted" style="font-size: 0.8rem;">Real-time scheduler events</span>
+          </div>
+          <div class="log-terminal" id="engineLogsTerminal"></div>
+        </div>
+
+        <!-- Admin Tabbed Operations -->
+        <div class="admin-nav-tabs">
+          <button class="admin-tab-btn active" id="btnTabSubs" onclick="switchAdminTab('subs')">
+            👥 All Subscriptions (<span id="tabCountSubs">0</span>)
+          </button>
+          <button class="admin-tab-btn" id="btnTabProducts" onclick="switchAdminTab('products')">
+            🍖 Catalog Inventory (<span id="tabCountProds">0</span>)
+          </button>
+          <button class="admin-tab-btn" id="btnTabFulfillment" onclick="switchAdminTab('fulfillment')">
+            🚚 Warehouse Fulfillment Queue (<span id="tabCountOrders">0</span>)
+          </button>
+        </div>
+
+        <!-- PANEL 1: ALL SUBSCRIPTIONS -->
+        <div id="panelSubs" class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Sub ID</th>
+                <th>Customer / Pet</th>
+                <th>Box Package</th>
+                <th>Schedule</th>
+                <th>Recurring Amount</th>
+                <th>Next Renewal</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminSubsTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- PANEL 2: CATALOG INVENTORY -->
+        <div id="panelProducts" class="table-responsive" style="display: none;">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Pet Target</th>
+                <th>Price</th>
+                <th>In Stock</th>
+                <th>Rating</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- PANEL 3: FULFILLMENT QUEUE -->
+        <div id="panelFulfillment" class="table-responsive" style="display: none;">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Subscription</th>
+                <th>Date Placed</th>
+                <th>Items Ordered</th>
+                <th>Total Billed</th>
+                <th>Tracking #</th>
+                <th>Delivery Status</th>
+                <th>Advance Status</th>
+              </tr>
+            </thead>
+            <tbody id="adminFulfillmentTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FLOATING & MODAL COMPONENTS ================= -->
+  <!-- Floating Box Builder Bar -->
+  <div id="floatingBoxBar" class="floating-box-bar" style="display: none;">
+    <div>
+      <span style="font-size: 1.1rem; font-weight: 700;">🎁 Custom Box Builder:</span>
+      <span id="boxItemCount" style="color: var(--emerald); font-weight: 700; margin-left: 0.4rem;">0 items selected</span>
+    </div>
+    <button onclick="navigate('builder')" class="btn btn-accent btn-sm">Proceed to Checkout &rarr;</button>
+  </div>
+
+  <!-- Quick Subscribe Modal -->
+  <div id="quickSubModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalProductTitle">Subscribe to Item</h3>
+        <button class="modal-close" onclick="closeSubModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: center;">
+          <img id="modalProductImg" src="" style="width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-md);" alt="Product">
+          <div>
+            <h4 id="modalProductName" style="font-size: 1.1rem;"></h4>
+            <div style="display: flex; align-items: baseline; gap: 0.6rem; margin-top: 0.3rem;">
+              <span id="modalSubPrice" style="font-size: 1.4rem; font-weight: 800; color: var(--primary);"></span>
+              <span id="modalRegPrice" style="text-decoration: line-through; color: var(--slate-400);"></span>
+              <span class="badge badge-emerald" id="modalDiscountBadge">Save 15%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Delivery Frequency:</label>
+          <div class="frequency-cards">
+            <div class="freq-card selected" onclick="selectModalFreq(this, 'weekly', 15)">
+              <span class="discount-tag">Save 15%</span>
+              <div style="font-size: 1.2rem; margin-bottom: 0.2rem;">⚡ Weekly</div>
+              <div style="font-size: 0.75rem; color: var(--slate-600);">Every 7 Days</div>
+            </div>
+            <div class="freq-card" onclick="selectModalFreq(this, 'biweekly', 10)">
+              <span class="discount-tag">Save 10%</span>
+              <div style="font-size: 1.2rem; margin-bottom: 0.2rem;">📦 Bi-Weekly</div>
+              <div style="font-size: 0.75rem; color: var(--slate-600);">Every 14 Days</div>
+            </div>
+            <div class="freq-card" onclick="selectModalFreq(this, 'monthly', 5)">
+              <span class="discount-tag">Save 5%</span>
+              <div style="font-size: 1.2rem; margin-bottom: 0.2rem;">🗓️ Monthly</div>
+              <div style="font-size: 0.75rem; color: var(--slate-600);">Every 30 Days</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pet's Name:</label>
+          <input type="text" id="modalPetName" class="form-control" value="Max">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Delivery Address:</label>
+          <input type="text" id="modalAddress" class="form-control" value="742 Evergreen Terrace, Springfield, OR 97477">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeSubModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="confirmQuickSubscription()">Confirm Automated Subscription 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Frequency Modal -->
+  <div id="editFreqModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Change Subscription Delivery Frequency</h3>
+        <button class="modal-close" onclick="closeFreqModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" style="margin-bottom: 1.5rem;">Choose how often your pet's box should automatically renew and dispatch:</p>
+        <div class="frequency-cards">
+          <div class="freq-card" id="freqOptionWeekly" onclick="setEditFreq('weekly', 15)">
+            <span class="discount-tag">Save 15%</span>
+            <div style="font-weight: 700;">Weekly</div>
+            <div style="font-size: 0.8rem; color: var(--slate-600);">Every 7 Days</div>
+          </div>
+          <div class="freq-card" id="freqOptionBiweekly" onclick="setEditFreq('biweekly', 10)">
+            <span class="discount-tag">Save 10%</span>
+            <div style="font-weight: 700;">Bi-Weekly</div>
+            <div style="font-size: 0.8rem; color: var(--slate-600);">Every 14 Days</div>
+          </div>
+          <div class="freq-card" id="freqOptionMonthly" onclick="setEditFreq('monthly', 5)">
+            <span class="discount-tag">Save 5%</span>
+            <div style="font-weight: 700;">Monthly</div>
+            <div style="font-size: 0.8rem; color: var(--slate-600);">Every 30 Days</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeFreqModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="confirmFrequencyUpdate()">Save Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Invoice Modal -->
+  <div id="invoiceModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3>Automated Subscription Invoice Receipt</h3>
+        <button class="modal-close" onclick="closeInvoiceModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="invoiceModalContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="window.print()">🖨️ Print Receipt</button>
+        <button class="btn btn-primary" onclick="closeInvoiceModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Product Modal -->
+  <div id="productModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="productModalTitle">Add New Catalog Item</h3>
+        <button class="modal-close" onclick="closeProductModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editProductId">
+
+        <div class="form-group">
+          <label class="form-label">Product Name:</label>
+          <input type="text" id="modalProdName" class="form-control" placeholder="e.g. Grain-Free Dental Chews">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Category:</label>
+            <select id="modalProdCategory" class="form-control">
+              <option value="food">🍖 Food & Treats</option>
+              <option value="toys">🧸 Toys</option>
+              <option value="accessories">🦺 Accessories</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pet Species:</label>
+            <select id="modalProdPetType" class="form-control">
+              <option value="dog">🐶 Dog</option>
+              <option value="cat">🐱 Cat</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Price ($):</label>
+            <input type="number" step="0.01" id="modalProdPrice" class="form-control" placeholder="19.99">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Stock Inventory:</label>
+            <input type="number" id="modalProdStock" class="form-control" placeholder="50">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Image URL:</label>
+          <input type="text" id="modalProdImage" class="form-control" placeholder="https://images.unsplash.com/...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description & Nutritional Info:</label>
+          <textarea id="modalProdDesc" class="form-control" rows="3" placeholder="Enter product details..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeProductModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role Switcher Modal -->
+  <div id="roleModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>Switch Demo Profile</h3>
+        <button class="modal-close" onclick="closeRoleModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" style="margin-bottom: 1.25rem;">Select an account to test different roles for project evaluation:</p>
+
+        <div class="demo-role-card" onclick="loginAsCustomer()">
+          <div style="font-size: 1.8rem;">🐶</div>
+          <div>
+            <div style="font-weight: 700;">Sarah Miller (Pet Parent)</div>
+            <div class="text-muted" style="font-size: 0.8rem;">Customer view with active subscriptions and past orders.</div>
+          </div>
+        </div>
+
+        <div class="demo-role-card" onclick="loginAsAdmin()">
+          <div style="font-size: 1.8rem;">🛡️</div>
+          <div>
+            <div style="font-weight: 700;">System Administrator / Examiner</div>
+            <div class="text-muted" style="font-size: 0.8rem;">Full Metrics, Live Cron Trigger & Inventory Manager.</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeRoleModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+        <div>
+          <div class="brand-logo" style="color: #fff; margin-bottom: 1rem;">
+            <div class="brand-icon">🐾</div>
+            <span>PetJoy</span>
+          </div>
+          <p style="font-size: 0.9rem;">Automated subscription platform providing continuous, reliable deliveries of healthy pet food, engaging toys, and essential accessories.</p>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; margin-bottom: 1rem;">Quick Navigation</h4>
+          <ul style="list-style: none; line-height: 2; font-size: 0.9rem;">
+            <li><a href="#catalog" onclick="navigate('catalog')">Product Catalog</a></li>
+            <li><a href="#builder" onclick="navigate('builder')">Build Custom Box</a></li>
+            <li><a href="#subscriptions" onclick="navigate('subscriptions')">Customer Dashboard</a></li>
+            <li><a href="#admin" onclick="navigate('admin')">Admin & Cron Console</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; margin-bottom: 1rem;">College Project Info</h4>
+          <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Domain:</strong> Automated E-Commerce Subscription System</p>
+          <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Tech:</strong> 100% Pure HTML, CSS & JavaScript</p>
+          <p style="font-size: 0.9rem;"><strong>Features:</strong> Automated Cron Engine, Flexible Frequencies, Full CRUD, Invoicing</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 PetJoy - Pet Food, Toys & Pet Accessories Automated Subscription System | Academic Project Submission</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Single Unified Script -->
+  <script src="script.js"></script>
+</body>
+</html>
